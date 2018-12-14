@@ -21,7 +21,7 @@ class ThreadTest extends TestCase
     /** @test */
     function a_thread_has_replies()
     {
-        $thread = factory('App\Thread')->create();
+        $thread = create('App\Thread');
 
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection',$thread->replies);
     }
@@ -29,7 +29,7 @@ class ThreadTest extends TestCase
     /** @test */
     function a_thread_has_a_creator()
     {
-        $thread = factory('App\Thread')->create();
+        $thread = create('App\Thread');
 
         $this->assertInstanceOf('App\User',$thread->creator);
     }

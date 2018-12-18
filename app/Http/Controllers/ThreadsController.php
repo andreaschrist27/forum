@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Thread;
+use App\Channel;
 class ThreadsController extends Controller
 {
     public function __construct()
@@ -11,9 +12,13 @@ class ThreadsController extends Controller
          $this->middleware('auth')->except('index','show');
     }
 
-    public function index(){
-       
-        $threads = Thread::latest()->get(); 
+    public function index(Channel $channel)
+    {
+        if($channel->exists){
+            $threads = $channel->threads()->latest()->get();
+        }else{
+            $threads = Thread::latest()->get(); 
+        }
        
         return view('threads.index',compact('threads'));
     }
@@ -44,4 +49,6 @@ class ThreadsController extends Controller
     {
         return view('threads.create');
     }
+
+
 }
